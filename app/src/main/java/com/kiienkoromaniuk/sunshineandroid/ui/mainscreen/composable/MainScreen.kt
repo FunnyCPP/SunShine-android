@@ -4,12 +4,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +28,7 @@ import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 @Composable
 fun MainScreen() {
     Scaffold(
+        backgroundColor = BrandTheme.colors.N100,
         topBar = {
             TopAppBar(
                 elevation = BrandTheme.dimensions.none,
@@ -36,8 +39,7 @@ fun MainScreen() {
                         textAlign = TextAlign.Center,
                         fontSize = 16.sp,
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(end = 50.dp),
+                            .fillMaxWidth(),
                     )
                 },
             )
@@ -83,14 +85,17 @@ fun MainScreen() {
             }
         },
     ) { paddingValues ->
-        repeat(3) {
-            Box(
-                modifier = Modifier
-                    .padding(20.dp)
-                    .skeleton(20.dp)
-                    .fillMaxWidth()
-                    .height(50.dp),
-            )
+        Column {
+            repeat(3) {
+                Box(
+                    modifier = Modifier
+                        .background(BrandTheme.colors.N000)
+                        .padding(20.dp)
+                        .skeleton(20.dp)
+                        .fillMaxWidth()
+                        .height(160.dp),
+                )
+            }
         }
     }
 }
