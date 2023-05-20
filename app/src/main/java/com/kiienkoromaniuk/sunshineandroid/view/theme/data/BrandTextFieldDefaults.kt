@@ -1,10 +1,10 @@
-package com.kiienko_romaniuk.sunshine_android.view.theme.data
+package com.kiienkoromaniuk.sunshineandroid.view.theme.data
 
 import androidx.compose.material.TextFieldColors
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import com.kiienko_romaniuk.sunshine_android.view.theme.BrandTheme
+import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 
 @Immutable
 object BrandTextFieldDefaults {

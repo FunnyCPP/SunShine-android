@@ -1,12 +1,12 @@
-package com.kiienko_romaniuk.sunshine_android.view.theme
+package com.kiienkoromaniuk.sunshineandroid.view.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import com.kiienko_romaniuk.sunshine_android.view.theme.data.BrandColors
-import com.kiienko_romaniuk.sunshine_android.view.theme.data.BrandDimensions
-import com.kiienko_romaniuk.sunshine_android.view.theme.data.BrandShapes
-import com.kiienko_romaniuk.sunshine_android.view.theme.data.BrandTypography
+import com.kiienkoromaniuk.sunshineandroid.view.theme.data.BrandColors
+import com.kiienkoromaniuk.sunshineandroid.view.theme.data.BrandDimensions
+import com.kiienkoromaniuk.sunshineandroid.view.theme.data.BrandShapes
+import com.kiienkoromaniuk.sunshineandroid.view.theme.data.BrandTypography
 
 @Composable
 fun BrandTheme(content: @Composable () -> Unit) {

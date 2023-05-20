@@ -1,12 +1,12 @@
-package com.kiienko_romaniuk.sunshine_android.view.theme
+package com.kiienkoromaniuk.sunshineandroid.view.theme
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.kiienko_romaniuk.sunshine_android.view.theme.data.BrandFontFamily
-import com.kiienko_romaniuk.sunshine_android.view.theme.data.BrandTypography
+import com.kiienkoromaniuk.sunshineandroid.view.theme.data.BrandFontFamily
+import com.kiienkoromaniuk.sunshineandroid.view.theme.data.BrandTypography
 
 val LocalBrandTypography = staticCompositionLocalOf {
     BrandTypography(

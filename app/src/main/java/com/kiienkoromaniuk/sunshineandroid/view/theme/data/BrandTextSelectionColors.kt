@@ -1,8 +1,8 @@
-package com.kiienko_romaniuk.sunshine_android.view.theme.data
+package com.kiienkoromaniuk.sunshineandroid.view.theme.data
 
 import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.runtime.Composable
-import com.kiienko_romaniuk.sunshine_android.view.theme.BrandTheme
+import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 
 object BrandTextSelectionColors {
     private const val BACKGROUND_COLOR_ALPHA = 0.4F

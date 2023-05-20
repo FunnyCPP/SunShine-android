@@ -1,9 +1,9 @@
-package com.kiienko_romaniuk.sunshine_android.view.theme.data
+package com.kiienkoromaniuk.sunshineandroid.view.theme.data
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import com.kiienko_romaniuk.sunshine_android.R
+import com.kiienkoromaniuk.sunshineandroid.R
 
 object BrandFontFamily {
     val Roboto = FontFamily(

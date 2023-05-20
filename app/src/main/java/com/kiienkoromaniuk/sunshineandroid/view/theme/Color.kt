@@ -1,8 +1,8 @@
-package com.kiienko_romaniuk.sunshine_android.view.theme
+package com.kiienkoromaniuk.sunshineandroid.view.theme
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
-import com.kiienko_romaniuk.sunshine_android.view.theme.data.BrandColors
+import com.kiienkoromaniuk.sunshineandroid.view.theme.data.BrandColors
 
 val LocalBrandColors = staticCompositionLocalOf {
     BrandColors(

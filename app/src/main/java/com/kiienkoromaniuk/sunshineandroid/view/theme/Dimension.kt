@@ -1,9 +1,9 @@
-package com.kiienko_romaniuk.sunshine_android.view.theme
+package com.kiienkoromaniuk.sunshineandroid.view.theme
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.kiienko_romaniuk.sunshine_android.view.theme.data.BrandDimensions
+import com.kiienkoromaniuk.sunshineandroid.view.theme.data.BrandDimensions
 
 val LocalBrandDimensions = staticCompositionLocalOf {
     BrandDimensions(

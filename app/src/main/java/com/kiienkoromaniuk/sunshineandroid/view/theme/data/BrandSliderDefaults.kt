@@ -1,11 +1,11 @@
-package com.kiienko_romaniuk.sunshine_android.view.theme.data
+package com.kiienkoromaniuk.sunshineandroid.view.theme.data
 
 import androidx.compose.material.SliderColors
 import androidx.compose.material.SliderDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
-import com.kiienko_romaniuk.sunshine_android.view.theme.BrandTheme
+import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 
 @Immutable
 object BrandSliderDefaults {
