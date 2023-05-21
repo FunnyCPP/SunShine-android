@@ -1,8 +1,7 @@
-package com.kiienko_romaniuk.sunshine_android
+package com.kiienkoromaniuk.sunshineandroid
 
+import junit.framework.TestCase.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
