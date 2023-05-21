@@ -5,16 +5,20 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -37,9 +41,9 @@ fun MainScreen(
                 backgroundColor = BrandTheme.colors.N100,
                 title = {
                     HeaderText(
-                        text = "Sunshine",
+                        text = "SunShine",
                         textAlign = TextAlign.Center,
-                        fontSize = 16.sp,
+                        fontSize = 32.sp,
                         modifier = Modifier
                             .fillMaxWidth(),
                     )
@@ -52,13 +56,14 @@ fun MainScreen(
                     .fillMaxWidth()
                     .height(60.dp),
             ) {
+                //Box5
                 Box(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .background(
                             brush = Brush.verticalGradient(
                                 listOf(
-                                    BrandTheme.colors.N000,
+                                    BrandTheme.colors.N100,
                                     BrandTheme.colors.N600,
                                 ),
                             ),
@@ -66,10 +71,11 @@ fun MainScreen(
                         .fillMaxWidth()
                         .height(34.dp),
                 )
+                //Box4
                 Box(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
-                        .background(BrandTheme.colors.N000)
+                        .background(BrandTheme.colors.N100)
                         .fillMaxWidth()
                         .height(30.dp),
                 )
@@ -88,17 +94,33 @@ fun MainScreen(
             }
         },
     ) { paddingValues ->
+
         Column {
             repeat(3) {
                 Box(
                     modifier = Modifier
-                        .background(BrandTheme.colors.N000)
+                        .background(BrandTheme.colors.N100)
                         .padding(20.dp)
                         .skeleton(20.dp)
                         .fillMaxWidth()
-                        .height(160.dp),
-                )
+                        .height(160.dp)
+                        .clickable {
+                            // TODO
+                            navController.navigate("additem")
+                        }
+
+                ){
+                    Text(
+                        text = "DODAJ NOWY ŚRODEK TRWAŁY",
+                        fontSize=35.sp,
+                        color= BrandTheme.colors.B600,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(20.dp)
+                    )}
             }
         }
     }
+
 }

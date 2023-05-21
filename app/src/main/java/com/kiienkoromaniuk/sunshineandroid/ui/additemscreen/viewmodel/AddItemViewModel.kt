@@ -18,4 +18,33 @@ class AddItemViewModel : ViewModel() {
             state.copy(room = room)
         }
     }
+    fun updatelp(lp: String){
+        _addItemState.update { state ->
+            state.copy(lp = lp)
+        }
+    }
+
+    fun updateNazwa(nazwa: String){
+        _addItemState.update { state ->
+            state.copy(nazwa = nazwa)
+        }
+    }
+
+    fun updateDataZakupu(data_zakupu: String){
+        _addItemState.update { state ->
+            state.copy(data_zakupu = data_zakupu)
+        }
+    }
+
+    fun updateDataZlomowania(data_zlomowania: String){
+        _addItemState.update { state ->
+            state.copy(data_zlomowania = data_zlomowania)
+        }
+    }
+
+    fun updateOpis(opis: String){
+        _addItemState.update { state ->
+            state.copy(opis = opis)
+        }
+    }
 }
