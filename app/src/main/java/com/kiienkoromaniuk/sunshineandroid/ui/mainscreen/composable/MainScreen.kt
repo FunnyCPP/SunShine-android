@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
-import androidx.compose.material.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,13 +19,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.kiienkoromaniuk.sunshineandroid.R
 import com.kiienkoromaniuk.sunshineandroid.view.extensions.skeleton
 import com.kiienkoromaniuk.sunshineandroid.view.text.HeaderText
 import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    navController: NavController,
+) {
     Scaffold(
         backgroundColor = BrandTheme.colors.N100,
         topBar = {
@@ -80,6 +82,7 @@ fun MainScreen() {
                         .align(Alignment.BottomCenter)
                         .clickable {
                             // TODO
+                            navController.navigate("additem")
                         },
                 )
             }
