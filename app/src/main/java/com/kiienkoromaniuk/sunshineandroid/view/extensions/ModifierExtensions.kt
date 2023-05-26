@@ -67,3 +67,19 @@ fun Modifier.clickable(
         )
     }
 }
+
+fun Modifier.bottomShadow(
+     shadowSize: Dp =20.dp,
+): Modifier = composed {
+    val paddingPx = with(LocalDensity.current) { shadowSize.toPx() }
+    this.drawWithContent {
+        clipRect(
+            left = DEFAULT_PADDING,
+            top = DEFAULT_PADDING,
+            right = size.width,
+            bottom = size.height + paddingPx,
+        ) {
+            this@drawWithContent.drawContent()
+        }
+    }
+}
