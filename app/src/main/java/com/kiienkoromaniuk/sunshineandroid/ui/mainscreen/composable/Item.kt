@@ -46,7 +46,7 @@ fun Item(
                 .padding(horizontal = BrandTheme.dimensions.extraLarge)
                 .fillMaxWidth(),
 
-            ) {
+        ) {
             Spacer(modifier = Modifier.height(BrandTheme.dimensions.normal))
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -58,11 +58,11 @@ fun Item(
                     text = item.title.orEmpty(),
                     fontSize = 18.sp,
 
-                    )
+                )
                 Spacer(modifier = Modifier.width(BrandTheme.dimensions.normal))
                 CopyText(
                     text = "(zezłamowany)",
-                    color = BrandTheme.colors.N500
+                    color = BrandTheme.colors.N500,
                 )
             }
             Row {

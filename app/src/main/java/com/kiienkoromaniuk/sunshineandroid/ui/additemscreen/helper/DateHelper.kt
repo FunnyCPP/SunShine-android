@@ -1,7 +1,5 @@
 package com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.helper
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit

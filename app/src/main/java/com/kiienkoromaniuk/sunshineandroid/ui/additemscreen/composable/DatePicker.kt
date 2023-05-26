@@ -11,12 +11,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.SemanticsActions.CopyText
 import com.kiienkoromaniuk.sunshineandroid.R
-import com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.state.AddItemState
 import com.kiienkoromaniuk.sunshineandroid.view.extensions.clickable
 import com.kiienkoromaniuk.sunshineandroid.view.text.BoldCopyText
+import com.kiienkoromaniuk.sunshineandroid.view.text.CopyText
 import com.kiienkoromaniuk.sunshineandroid.view.text.PrimaryOutlinedTextField
 import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
-import com.kiienkoromaniuk.sunshineandroid.view.text.CopyText
 
 @ExperimentalFoundationApi
 @Composable

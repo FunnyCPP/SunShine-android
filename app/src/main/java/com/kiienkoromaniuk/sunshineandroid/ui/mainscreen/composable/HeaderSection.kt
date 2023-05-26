@@ -29,7 +29,7 @@ fun HeaderSection(
     ) {
         Column(
             modifier = Modifier
-                .padding(BrandTheme.dimensions.extraLarge)
+                .padding(BrandTheme.dimensions.extraLarge),
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),

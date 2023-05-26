@@ -1,13 +1,10 @@
 package com.kiienkoromaniuk.sunshineandroid.view.button
 
-import androidx.annotation.DimenRes
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.kiienkoromaniuk.sunshineandroid.R
 import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 
 @Composable

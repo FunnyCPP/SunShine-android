@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
                     composable("additem") {
                         AddItemScreen(
                             navController = navController,
-                            showDatePicker = this@MainActivity::showDatePicker
+                            showDatePicker = this@MainActivity::showDatePicker,
                         )
                     }
                 }

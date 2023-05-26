@@ -1,6 +1,5 @@
 package com.kiienkoromaniuk.sunshineandroid.view.extensions
 
-import androidx.annotation.DimenRes
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
@@ -13,7 +12,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
@@ -69,7 +67,7 @@ fun Modifier.clickable(
 }
 
 fun Modifier.bottomShadow(
-     shadowSize: Dp =20.dp,
+    shadowSize: Dp = 20.dp,
 ): Modifier = composed {
     val paddingPx = with(LocalDensity.current) { shadowSize.toPx() }
     this.drawWithContent {

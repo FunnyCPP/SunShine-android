@@ -1,6 +1,5 @@
 package com.kiienkoromaniuk.sunshineandroid.view.button
 
-import androidx.annotation.DimenRes
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,9 +10,6 @@ import androidx.compose.material.ProgressIndicatorDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.semantics.SemanticsProperties.TestTag
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.kiienkoromaniuk.sunshineandroid.view.text.ButtonText

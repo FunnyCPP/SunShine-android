@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -41,7 +40,7 @@ fun MainScreen(
                         text = "SunShine",
                         textAlign = TextAlign.Center,
                         fontSize = 16.sp,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     )
                 },
                 elevation = BrandTheme.dimensions.none,
@@ -57,7 +56,7 @@ fun MainScreen(
                     .fillMaxWidth()
                     .height(60.dp),
             ) {
-                //Box5
+                // Box5
                 Box(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
@@ -72,7 +71,7 @@ fun MainScreen(
                         .fillMaxWidth()
                         .height(34.dp),
                 )
-                //Box4
+                // Box4
                 Box(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
@@ -97,7 +96,7 @@ fun MainScreen(
     ) { paddingValues ->
         LazyColumn(
             content = {
-                item { 
+                item {
                     HeaderSection(onInventoryClick = { /*TODO*/ })
                 }
                 item {
@@ -114,13 +113,12 @@ fun MainScreen(
                             house = "34",
                             purchasingDate = "12-10-2022",
                             scrappingDate = "nie zezłamowany",
-                            description = "Opis"
+                            description = "Opis",
                         ),
-                        onClick = { /*TODO*/ }
+                        onClick = { /*TODO*/ },
                     )
                 }
-            }
+            },
         )
     }
-
 }
