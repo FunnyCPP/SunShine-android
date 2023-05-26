@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">SunShine-android</string>
+
+    <string name="add">Dodaj</string>
+    <string name="anuluj">Anuluj</string>
+    <string name="lp">Nr ŚT :</string>
+    <string name="numer_label">Kolejny numer inwentarza</string>
+    <string name="nazwa">Nazwa:</string>
+    <string name="nazwa_label">Nazwa inwentarza</string>
+    <string name="nr_pokoju">Nr pokoju:</string>
+    <string name="nr_pokoju_label">Nr pokoju</string>
+    <string name="data_zakupu">Data zakupu:</string>
+    <string name="data_zakupu_label">RRRR.MM.DD</string>
+    <string name="data_zlomowania">Data złomowania:</string>
+    <string name="data_zlomowania_label">RRRR.MM.DD</string>
+    <string name="opis">Opis:</string>
+    <string name="opis_label">Opis środka trwałego</string>
+    <string name="cancel">Anuluj</string>
+    <string name="select_date">Wybierz datę</string>
 </resources>
