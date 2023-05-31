@@ -11,6 +11,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.MaterialDatePicker.INPUT_MODE_CALENDAR
 import com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.composable.AddItemScreen
 import com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.helper.DateHelper
+import com.kiienkoromaniuk.sunshineandroid.ui.itemdatails.composable.ItemDetailsScreen
 import com.kiienkoromaniuk.sunshineandroid.ui.mainscreen.composable.MainScreen
 import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
                             showDatePicker = this@MainActivity::showDatePicker,
                         )
                     }
+                    composable("itemdetails") { ItemDetailsScreen(navController = navController)}
                 }
             }
         }
