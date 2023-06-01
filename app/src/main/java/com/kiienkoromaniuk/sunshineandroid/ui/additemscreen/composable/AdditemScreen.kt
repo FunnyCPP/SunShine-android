@@ -1,35 +1,57 @@
 package com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.composable
 
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionStatus
+import com.google.accompanist.permissions.rememberPermissionState
 import com.kiienkoromaniuk.sunshineandroid.R
 import com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.state.AddItemState
 import com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.viewmodel.AddItemViewModel
+import com.kiienkoromaniuk.sunshineandroid.view.button.N800Button
 import com.kiienkoromaniuk.sunshineandroid.view.composable.TopBar
+import com.kiienkoromaniuk.sunshineandroid.view.extensions.GetOnceResult
 import com.kiienkoromaniuk.sunshineandroid.view.text.CopyText
 import com.kiienkoromaniuk.sunshineandroid.view.text.HeaderText
 import com.kiienkoromaniuk.sunshineandroid.view.text.PrimaryOutlinedTextField
 import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 
+@ExperimentalPermissionsApi
 @ExperimentalFoundationApi
 @Composable
 fun AddItemScreen(
@@ -38,6 +60,15 @@ fun AddItemScreen(
     addItemViewModel: AddItemViewModel = viewModel(),
 ) {
     val addItemState by addItemViewModel.addItemState.collectAsState(initial = AddItemState())
+    navController.GetOnceResult<String>("barcode"){
+        addItemViewModel.updateBarcode(it)
+    }
+    val permissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
+    if(permissionState.status != PermissionStatus.Granted) {
+        LaunchedEffect(true) {
+            permissionState.launchPermissionRequest()
+        }
+    }
     Scaffold { paddingValues ->
         Box(
             modifier = Modifier
@@ -58,6 +89,7 @@ fun AddItemScreen(
                     addItemState = addItemState,
                     addItemViewModel = addItemViewModel,
                     showDatePicker = showDatePicker,
+                    showBarcodeScanner = { navController.navigate("barcodescanner") }
                 )
             }
             ActionButtons(
@@ -77,6 +109,7 @@ private fun ItemCreator(
     addItemState: AddItemState,
     addItemViewModel: AddItemViewModel,
     showDatePicker: (onDateSelected: (String) -> Unit) -> Unit,
+    showBarcodeScanner: () -> Unit,
 ) {
     Column(
         modifier = Modifier.padding(20.dp),
@@ -147,6 +180,23 @@ private fun ItemCreator(
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             value = addItemState.description.orEmpty(),
             onValueChange = addItemViewModel::updateDescription,
+        )
+        addItemState.barcode?.let { barcode->
+            Spacer(modifier = Modifier.height(15.dp))
+            HeaderText(text = "Barcode:")
+            Spacer(modifier = Modifier.height(5.dp))
+            PrimaryOutlinedTextField(
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                value = addItemState.barcode,
+                onValueChange = addItemViewModel::updateBarcode,
+            )
+        }
+        Spacer(modifier = Modifier.height(15.dp))
+        N800Button(
+            text = "Zeskanuj kod",
+            radius = 20.dp,
+            modifier = Modifier.fillMaxWidth(),
+            onButtonClicked = showBarcodeScanner
         )
     }
 }

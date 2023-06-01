@@ -3,18 +3,23 @@ package com.kiienkoromaniuk.sunshineandroid
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.camera.core.ExperimentalGetImage
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.MaterialDatePicker.INPUT_MODE_CALENDAR
+import com.kiienkoromaniuk.sunshineandroid.barcode.composable.BarcodeScannerScreen
 import com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.composable.AddItemScreen
 import com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.helper.DateHelper
 import com.kiienkoromaniuk.sunshineandroid.ui.itemdatails.composable.ItemDetailsScreen
 import com.kiienkoromaniuk.sunshineandroid.ui.mainscreen.composable.MainScreen
 import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 
+@ExperimentalPermissionsApi
+@ExperimentalGetImage
 @ExperimentalFoundationApi
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +36,7 @@ class MainActivity : AppCompatActivity() {
                         )
                     }
                     composable("itemdetails") { ItemDetailsScreen(navController = navController)}
+                    composable("barcodescanner") { BarcodeScannerScreen(navController = navController)}
                 }
             }
         }

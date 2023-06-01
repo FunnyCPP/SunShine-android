@@ -37,9 +37,15 @@ class AddItemViewModel : ViewModel() {
         }
     }
 
-    fun updateDescription(opis: String) {
+    fun updateDescription(description: String) {
         _addItemState.update { state ->
-            state.copy(description = opis)
+            state.copy(description = description)
+        }
+    }
+
+    fun updateBarcode(barcode: String) {
+        _addItemState.update { state ->
+            state.copy(barcode = barcode)
         }
     }
 }

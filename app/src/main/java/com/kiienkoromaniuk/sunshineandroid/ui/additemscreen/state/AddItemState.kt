@@ -8,4 +8,5 @@ data class AddItemState(
     val scrappingDate: String? = null,
     val description: String? = null,
     val house: String? = null,
+    val barcode: String? = null,
 )
