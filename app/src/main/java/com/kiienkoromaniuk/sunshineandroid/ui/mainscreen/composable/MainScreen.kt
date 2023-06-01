@@ -115,7 +115,7 @@ fun MainScreen(
                             scrappingDate = "nie zezłamowany",
                             description = "Opis",
                         ),
-                        onClick = { /*TODO*/ },
+                        onClick = { navController.navigate("itemdetails") },
                     )
                 }
             },
