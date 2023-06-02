@@ -1,4 +1,4 @@
-package com.kiienkoromaniuk.sunshineandroid.barcode
+package com.kiienkoromaniuk.sunshineandroid.ui.barcode
 
 import android.annotation.SuppressLint
 import android.util.Log

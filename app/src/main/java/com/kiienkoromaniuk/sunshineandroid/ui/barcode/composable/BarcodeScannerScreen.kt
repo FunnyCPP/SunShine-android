@@ -1,4 +1,4 @@
-package com.kiienkoromaniuk.sunshineandroid.barcode.composable
+package com.kiienkoromaniuk.sunshineandroid.ui.barcode.composable
 
 import android.util.Log
 import android.view.ViewGroup
@@ -47,7 +47,7 @@ import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.common.util.concurrent.ListenableFuture
 import com.kiienkoromaniuk.sunshineandroid.R
-import com.kiienkoromaniuk.sunshineandroid.barcode.BarCodeAnalyser
+import com.kiienkoromaniuk.sunshineandroid.ui.barcode.BarCodeAnalyser
 import com.kiienkoromaniuk.sunshineandroid.view.text.CopyText
 import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 import java.util.concurrent.ExecutorService

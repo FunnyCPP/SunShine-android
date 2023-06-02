@@ -11,7 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.MaterialDatePicker.INPUT_MODE_CALENDAR
-import com.kiienkoromaniuk.sunshineandroid.barcode.composable.BarcodeScannerScreen
+import com.kiienkoromaniuk.sunshineandroid.ui.barcode.composable.BarcodeScannerScreen
 import com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.composable.AddItemScreen
 import com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.helper.DateHelper
 import com.kiienkoromaniuk.sunshineandroid.ui.itemdatails.composable.ItemDetailsScreen
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                         )
                     }
                     composable("itemdetails") { ItemDetailsScreen(navController = navController)}
-                    composable("barcodescanner") { BarcodeScannerScreen(navController = navController)}
+                    composable("barcodescanner") { BarcodeScannerScreen(navController = navController) }
                 }
             }
         }
