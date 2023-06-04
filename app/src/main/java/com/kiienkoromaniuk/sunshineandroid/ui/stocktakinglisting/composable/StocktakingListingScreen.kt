@@ -1,4 +1,4 @@
-package com.kiienkoromaniuk.sunshineandroid.ui.mainscreen.composable
+package com.kiienkoromaniuk.sunshineandroid.ui.stocktakinglisting.composable
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -13,6 +13,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -20,24 +22,29 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.kiienkoromaniuk.sunshineandroid.R
+import com.kiienkoromaniuk.sunshineandroid.ui.stocktakinglisting.viewmodel.StocktakingListingViewModel
+import com.kiienkoromaniuk.sunshineandroid.view.composable.BrandDialog
 import com.kiienkoromaniuk.sunshineandroid.view.text.H2Text
 import com.kiienkoromaniuk.sunshineandroid.view.text.HeaderText
 import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 
 @ExperimentalFoundationApi
 @Composable
-fun MainScreen(
+fun StocktakingListingScreen(
     navController: NavController,
+    stocktakingListingViewModel: StocktakingListingViewModel = viewModel()
 ) {
+    val state by stocktakingListingViewModel.stocktakingListingState.collectAsState()
     Scaffold(
         backgroundColor = BrandTheme.colors.N100,
         topBar = {
             TopAppBar(
                 title = {
                     HeaderText(
-                        text = "SunShine",
+                        text = "Inwentaryzacje",
                         textAlign = TextAlign.Center,
                         fontSize = 16.sp,
                         modifier = Modifier.fillMaxWidth(),
@@ -87,34 +94,37 @@ fun MainScreen(
                         .padding(bottom = BrandTheme.dimensions.normal)
                         .align(Alignment.BottomCenter)
                         .clickable {
-                            // TODO
-                            navController.navigate("additem")
+                            stocktakingListingViewModel.changeDialogVisibility()
                         },
                 )
             }
         },
     ) { paddingValues ->
+        if(state.shouldShowDialog){
+            BrandDialog(
+                title = "Inwentaryzacja",
+                house = state.house,
+                room = state.room,
+                onDismissRequest = stocktakingListingViewModel::changeDialogVisibility,
+                onRightButtonClick = {
+                    stocktakingListingViewModel.changeDialogVisibility()
+                    navController.navigate("stocktaking")
+                },
+                onHouseChange = stocktakingListingViewModel::updateHouse,
+                onRoomChange = stocktakingListingViewModel::updateRoom
+            )
+        }
         LazyColumn(
+            modifier = Modifier.padding(paddingValues),
             content = {
                 item {
-                    HeaderSection(onInventoryClick = { navController.navigate("stocktakinglisting") })
-                }
-                item {
                     H2Text(
-                        text = "Dodane przedmioty",
+                        text = "Poprzednie inwentaryzacje",
                         modifier = Modifier.padding(BrandTheme.dimensions.extraLarge),
                     )
                 }
-                items(3) {
-                    Item(
-                        item = com.kiienkoromaniuk.sunshineandroid.data.model.Item(
-                            title = "Krzesło",
-                            room = "3/20",
-                            house = "34",
-                            purchasingDate = "12-10-2022",
-                            scrappingDate = "nie zezłamowany",
-                            description = "Opis",
-                        ),
+                items(10) {
+                    StocktakingItem(
                         onClick = { navController.navigate("itemdetails") },
                     )
                 }

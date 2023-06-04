@@ -16,6 +16,8 @@ import com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.composable.AddItemSc
 import com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.helper.DateHelper
 import com.kiienkoromaniuk.sunshineandroid.ui.itemdatails.composable.ItemDetailsScreen
 import com.kiienkoromaniuk.sunshineandroid.ui.mainscreen.composable.MainScreen
+import com.kiienkoromaniuk.sunshineandroid.ui.stocktaking.composable.StocktakingScreen
+import com.kiienkoromaniuk.sunshineandroid.ui.stocktakinglisting.composable.StocktakingListingScreen
 import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 
 @ExperimentalPermissionsApi
@@ -37,6 +39,8 @@ class MainActivity : AppCompatActivity() {
                     }
                     composable("itemdetails") { ItemDetailsScreen(navController = navController)}
                     composable("barcodescanner") { BarcodeScannerScreen(navController = navController) }
+                    composable("stocktakinglisting") { StocktakingListingScreen(navController = navController)}
+                    composable("stocktaking")  { StocktakingScreen(navController = navController) }
                 }
             }
         }
