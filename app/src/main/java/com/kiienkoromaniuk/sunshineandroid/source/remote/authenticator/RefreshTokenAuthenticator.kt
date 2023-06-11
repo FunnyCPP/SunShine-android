@@ -13,21 +13,15 @@ class RefreshTokenAuthenticator @Inject constructor(
 
     override fun authenticate(route: Route?, response: Response): Request? {
         return try {
-            authRepository.refreshTokenWithOutCallback(getRefreshTokenRequest())
             val tokenType = authRepository.getTokenType()
             val accessToken = authRepository.getAccessTokenOrNull()
             response.request.newBuilder()
-                .removeHeader(HttpHeaders.AUTHORIZATION)
-                .addHeader(HttpHeaders.AUTHORIZATION, "$tokenType $accessToken")
+                .removeHeader("Authorization")
+                .addHeader("Authorization", "$tokenType $accessToken")
                 .build()
         } catch (e: Throwable) {
             null
         }
     }
 
-    private fun getRefreshTokenRequest() = RefreshTokenRequest().apply {
-        refreshToken = authRepository.getRefreshTokenOrNull()
-        grantType = RefreshTokenRequest.GRANT_TYPE
-        clientId = authRepository.getDomain()
-    }
 }

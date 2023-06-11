@@ -8,7 +8,7 @@ object DateHelper {
     fun dateWithDashesFromMilliseconds(milliseconds: Long?): String? {
         return milliseconds?.let {
             val date = LocalDate.ofEpochDay(TimeUnit.MILLISECONDS.toDays(milliseconds))
-            return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")).toString()
+            return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString()
         }
     }
 }

@@ -1,12 +1,7 @@
 package com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.composable
 
 import android.Manifest
-import android.content.pm.PackageManager
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.camera.core.Preview
-import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.PreviewView
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -16,31 +11,26 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.content.ContextCompat
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import com.kiienkoromaniuk.sunshineandroid.R
+import com.kiienkoromaniuk.sunshineandroid.data.State
 import com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.state.AddItemState
 import com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.viewmodel.AddItemViewModel
 import com.kiienkoromaniuk.sunshineandroid.view.button.N800Button
@@ -57,18 +47,34 @@ import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 fun AddItemScreen(
     showDatePicker: (onDateSelected: (String) -> Unit) -> Unit,
     navController: NavController,
-    addItemViewModel: AddItemViewModel = viewModel(),
+    addItemViewModel: AddItemViewModel = hiltViewModel(),
 ) {
+    val context = LocalContext.current
     val addItemState by addItemViewModel.addItemState.collectAsState(initial = AddItemState())
     navController.GetOnceResult<String>("barcode"){
         addItemViewModel.updateBarcode(it)
     }
+    val createItemResponse by addItemViewModel.createItemResponse.collectAsState(initial = null)
     val permissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
     if(permissionState.status != PermissionStatus.Granted) {
         LaunchedEffect(true) {
             permissionState.launchPermissionRequest()
         }
     }
+    DisposableEffect(key1 = createItemResponse, effect = {
+        when(createItemResponse){
+            is State.Error -> {
+                Toast.makeText(context, "Wystąpił błąd podczas dodawania przedmiotu", Toast.LENGTH_LONG).show()
+            }
+            is State.Progress -> {}
+            is State.Success -> {
+                Toast.makeText(context, "Przedmiot został dodany", Toast.LENGTH_LONG).show()
+                navController.navigate("mainscreen")
+            }
+            null -> {}
+        }
+        onDispose {  }
+    })
     Scaffold { paddingValues ->
         Box(
             modifier = Modifier
@@ -76,7 +82,7 @@ fun AddItemScreen(
                 .fillMaxSize(),
         ) {
             Column(
-                modifier = Modifier.padding(bottom = 70.dp),
+                modifier = Modifier.padding(bottom = 50.dp),
             ) {
                 TopBar(
                     title = "Nowy przedmiot",
@@ -95,7 +101,7 @@ fun AddItemScreen(
             ActionButtons(
                 onBackPressed = navController::navigateUp,
                 onSubmitClicked = {
-                    // TODO
+                   addItemViewModel.createItem()
                 },
                 modifier = Modifier.align(Alignment.BottomCenter),
             )
@@ -112,7 +118,9 @@ private fun ItemCreator(
     showBarcodeScanner: () -> Unit,
 ) {
     Column(
-        modifier = Modifier.padding(20.dp),
+        modifier = Modifier
+            .padding(20.dp)
+            .verticalScroll(rememberScrollState()),
     ) {
         Spacer(modifier = Modifier.height(15.dp))
         HeaderText(text = "Nazwa inwentarza")
@@ -141,11 +149,29 @@ private fun ItemCreator(
             },
             singleLine = true,
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number,
+                keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Next,
             ),
             value = addItemState.room.orEmpty(),
             onValueChange = addItemViewModel::updateRoom,
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        HeaderText(text = "Nr budynku")
+        Spacer(modifier = Modifier.height(5.dp))
+        PrimaryOutlinedTextField(
+            placeholder = {
+                CopyText(
+                    text = "Nr budynku",
+                    color = BrandTheme.colors.N500,
+                )
+            },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Next,
+            ),
+            value = addItemState.house.orEmpty(),
+            onValueChange = addItemViewModel::updateHouse,
         )
         Spacer(modifier = Modifier.height(15.dp))
         DatePicker(

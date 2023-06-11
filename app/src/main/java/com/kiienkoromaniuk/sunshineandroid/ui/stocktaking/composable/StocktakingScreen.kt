@@ -117,6 +117,8 @@ fun StocktakingScreen(
                                     purchasingDate = "12-10-2022",
                                     scrappingDate = "nie zezłamowany",
                                     description = "Opis",
+                                    code = "",
+                                    id = 1
                                 ),
                                 onClick = { navController.navigate("itemdetails") },
                             )
@@ -143,6 +145,8 @@ fun StocktakingScreen(
                                     purchasingDate = "12-10-2022",
                                     scrappingDate = "nie zezłamowany",
                                     description = "Opis",
+                                    code = "",
+                                    id = 1,
                                 ),
                                 onClick = { navController.navigate("itemdetails") },
                             )
