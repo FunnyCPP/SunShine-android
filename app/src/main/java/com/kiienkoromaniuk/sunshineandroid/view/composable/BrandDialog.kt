@@ -14,31 +14,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.kiienkoromaniuk.sunshineandroid.R
-import com.kiienkoromaniuk.sunshineandroid.view.button.G400Button
 import com.kiienkoromaniuk.sunshineandroid.view.button.N800Button
-import com.kiienkoromaniuk.sunshineandroid.view.extensions.clickable
-import com.kiienkoromaniuk.sunshineandroid.view.text.ButtonText
-import com.kiienkoromaniuk.sunshineandroid.view.text.CopyText
 import com.kiienkoromaniuk.sunshineandroid.view.text.H2Text
 import com.kiienkoromaniuk.sunshineandroid.view.text.HeaderText
 import com.kiienkoromaniuk.sunshineandroid.view.text.PrimaryOutlinedTextField
 import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
-import com.kiienkoromaniuk.sunshineandroid.view.theme.data.BrandTextFieldDefaults
 
 @ExperimentalFoundationApi
 @Composable
@@ -57,7 +44,7 @@ fun BrandDialog(
             Column(
                 modifier = modifier
                     .shadow(
-                       1.dp,
+                        1.dp,
                     )
                     .background(
                         color = BrandTheme.colors.N000,
@@ -101,9 +88,9 @@ fun BrandDialog(
                     Spacer(modifier = Modifier.width(BrandTheme.dimensions.extraLarge))
                     N800Button(
                         text = "Rozpocznij",
-                        onButtonClicked =  onRightButtonClick,
+                        onButtonClicked = onRightButtonClick,
                         contentPadding = PaddingValues(10.dp),
-                        radius = 15.dp
+                        radius = 15.dp,
                     )
                 }
             }

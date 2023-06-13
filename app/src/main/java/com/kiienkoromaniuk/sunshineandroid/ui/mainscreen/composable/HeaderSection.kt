@@ -19,6 +19,8 @@ private const val DIVIDER = "/"
 
 @Composable
 fun HeaderSection(
+    itemsCount: Long,
+    stocktakingCount: Long,
     onInventoryClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -35,10 +37,10 @@ fun HeaderSection(
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 H1Text(
-                    text = "10 inw.",
+                    text = "$stocktakingCount inw.",
                 )
                 CopyText(
-                    text = DIVIDER + "100 przedm.",
+                    text = DIVIDER + "$itemsCount przedm.",
                     color = BrandTheme.colors.N500,
                     fontSize = BrandTheme.typography.h1.fontSize,
                 )

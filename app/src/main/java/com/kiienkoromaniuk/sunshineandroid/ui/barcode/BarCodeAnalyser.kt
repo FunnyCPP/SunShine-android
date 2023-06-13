@@ -1,7 +1,6 @@
 package com.kiienkoromaniuk.sunshineandroid.ui.barcode
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
@@ -31,13 +30,9 @@ class BarCodeAnalyser(
                     .addOnSuccessListener { barcodes ->
                         if (barcodes.isNotEmpty()) {
                             onBarcodeDetected(barcodes)
-                        } else {
-                            Log.d("TAG", "analyze: No barcode Scanned")
                         }
                     }
-                    .addOnFailureListener { exception ->
-                        Log.d("TAG", "BarcodeAnalyser: Something went wrong $exception")
-                    }
+                    .addOnFailureListener { exception -> }
                     .addOnCompleteListener {
                         image.close()
                     }
@@ -48,4 +43,3 @@ class BarCodeAnalyser(
         }
     }
 }
-

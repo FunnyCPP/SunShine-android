@@ -10,9 +10,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -20,8 +24,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.kiienkoromaniuk.sunshineandroid.R
+import com.kiienkoromaniuk.sunshineandroid.data.State
+import com.kiienkoromaniuk.sunshineandroid.ui.mainscreen.viewmodel.MainScreenViewModel
 import com.kiienkoromaniuk.sunshineandroid.view.text.H2Text
 import com.kiienkoromaniuk.sunshineandroid.view.text.HeaderText
 import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
@@ -30,7 +37,14 @@ import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 @Composable
 fun MainScreen(
     navController: NavController,
+    mainScreenViewModel: MainScreenViewModel = hiltViewModel(),
 ) {
+    LaunchedEffect(key1 = true, block = {
+        mainScreenViewModel.getItems()
+        mainScreenViewModel.getBootstrap()
+    })
+    val itemsState by mainScreenViewModel.items.collectAsState(initial = null)
+    val bootstrapState by mainScreenViewModel.bootstrap.collectAsState(initial = null)
     Scaffold(
         backgroundColor = BrandTheme.colors.N100,
         topBar = {
@@ -97,7 +111,18 @@ fun MainScreen(
         LazyColumn(
             content = {
                 item {
-                    HeaderSection(onInventoryClick = { navController.navigate("stocktakinglisting") })
+                    when (val bootstrap = bootstrapState) {
+                        is State.Error -> {}
+                        is State.Progress -> {}
+                        is State.Success -> {
+                            HeaderSection(
+                                itemsCount = bootstrap.response?.itemsCount ?: 0,
+                                stocktakingCount = bootstrap.response?.stocktakingCount ?: 0,
+                                onInventoryClick = { navController.navigate("stocktakinglisting") },
+                            )
+                        }
+                        null -> {}
+                    }
                 }
                 item {
                     H2Text(
@@ -105,18 +130,18 @@ fun MainScreen(
                         modifier = Modifier.padding(BrandTheme.dimensions.extraLarge),
                     )
                 }
-                items(3) {
-                    Item(
-                        item = com.kiienkoromaniuk.sunshineandroid.data.model.Item(
-                            title = "Krzesło",
-                            room = "3/20",
-                            house = "34",
-                            purchasingDate = "12-10-2022",
-                            scrappingDate = "nie zezłamowany",
-                            description = "Opis",
-                        ),
-                        onClick = { navController.navigate("itemdetails") },
-                    )
+                when (val items = itemsState) {
+                    is State.Error -> {}
+                    is State.Progress -> {}
+                    is State.Success -> {
+                        items(items.response?.items.orEmpty()) { item ->
+                            Item(
+                                item = item,
+                                onClick = { navController.navigate("itemdetails?id=${item.id}") },
+                            )
+                        }
+                    }
+                    null -> {}
                 }
             },
         )

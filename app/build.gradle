@@ -1,11 +1,20 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
     namespace 'com.kiienkoromaniuk.sunshineandroid'
     compileSdk 33
+
+    ext.getEnv = { envName, defaultValue ->
+        if (System.getenv(envName) != null) {
+            return System.getenv(envName)
+        }
+        return defaultValue
+    }
 
     defaultConfig {
         applicationId "com.kiienkoromaniuk.sunshineandroid"
@@ -21,6 +30,13 @@ android {
     }
 
     buildTypes {
+        def addBuildConfigField = { target, name, value ->
+            target.buildConfigField "String", "${name}", "\"${value}\""
+        }
+        debug {
+            addBuildConfigField(owner, "API_URL", "http://83.229.85.107:8080/")
+            debuggable true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -75,4 +91,26 @@ dependencies {
     implementation "com.airbnb.android:lottie-compose:5.2.0"
     implementation("androidx.compose.runtime:runtime:1.4.3")
     implementation("androidx.compose.runtime:runtime-livedata:1.4.3")
+    implementation 'androidx.work:work-runtime-ktx:2.8.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1'
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    implementation "androidx.hilt:hilt-work:$hiltAndroidXVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    kapt "androidx.hilt:hilt-compiler:$hiltAndroidXVersion"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpLoggingVersion"
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+
+    // Chucker;Debug tool
+    debugImplementation "com.github.chuckerteam.chucker:library:$chuckerVersion"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:$chuckerVersion"
+    implementation 'com.localebro:okhttpprofiler:1.0.8'
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
+
 }

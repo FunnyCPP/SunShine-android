@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.kiienkoromaniuk.sunshineandroid.data.model.Stocktaking
 import com.kiienkoromaniuk.sunshineandroid.view.extensions.clickable
 import com.kiienkoromaniuk.sunshineandroid.view.text.BoldCopyText
 import com.kiienkoromaniuk.sunshineandroid.view.text.CopyText
@@ -21,6 +22,7 @@ import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 @ExperimentalFoundationApi
 @Composable
 fun StocktakingItem(
+    stocktaking: Stocktaking,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -42,20 +44,20 @@ fun StocktakingItem(
                 .padding(horizontal = BrandTheme.dimensions.extraLarge)
                 .fillMaxWidth(),
 
-            ) {
+        ) {
             Spacer(modifier = Modifier.height(BrandTheme.dimensions.normal))
             Row {
                 BoldCopyText(text = "Budynek:")
                 Spacer(modifier = Modifier.width(BrandTheme.dimensions.extraSmall))
-                CopyText(text = "34")
+                CopyText(text = stocktaking.house)
                 Spacer(modifier = Modifier.width(BrandTheme.dimensions.normal))
                 BoldCopyText(text = "Pokój:")
                 Spacer(modifier = Modifier.width(BrandTheme.dimensions.extraSmall))
-                CopyText(text = "3/23")
+                CopyText(text = stocktaking.room)
             }
             Spacer(modifier = Modifier.height(BrandTheme.dimensions.normal))
             BoldCopyText(text = "Data inwentaryzacji:")
-            CopyText(text = "10-06-2023")
+            CopyText(text = stocktaking.createdAt)
             Spacer(modifier = Modifier.height(BrandTheme.dimensions.normal))
         }
     }
