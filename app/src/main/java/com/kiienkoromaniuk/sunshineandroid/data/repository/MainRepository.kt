@@ -1,10 +1,8 @@
 package com.kiienkoromaniuk.sunshineandroid.data.repository
 
-import com.kiienkoromaniuk.sunshineandroid.data.model.CreateStocktaking
 import com.kiienkoromaniuk.sunshineandroid.data.model.Item
-import com.kiienkoromaniuk.sunshineandroid.data.model.LoginRequest
+import com.kiienkoromaniuk.sunshineandroid.data.request.StocktakingRequest
 import com.kiienkoromaniuk.sunshineandroid.source.remote.client.ModelClient
-import com.kiienkoromaniuk.sunshineandroid.source.remote.client.NoAuthModelClient
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -36,8 +34,8 @@ class MainRepository @Inject constructor(
         modelClient.getStocktaking()
     }
 
-    suspend fun createStocktaking(createStocktaking: CreateStocktaking) = emitResponse {
-        modelClient.createStocktaking(createStocktaking = createStocktaking)
+    suspend fun createStocktaking(stocktakingRequest: StocktakingRequest) = emitResponse {
+        modelClient.createStocktaking(stocktakingRequest = stocktakingRequest)
     }
 
     suspend fun getStocktakingById(id: Long) = emitResponse {

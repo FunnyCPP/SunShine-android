@@ -1,6 +1,7 @@
 package com.kiienkoromaniuk.sunshineandroid.source.remote.client
 
 import com.kiienkoromaniuk.sunshineandroid.data.model.*
+import com.kiienkoromaniuk.sunshineandroid.data.request.StocktakingRequest
 import com.kiienkoromaniuk.sunshineandroid.data.response.ItemsResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -20,13 +21,13 @@ interface ModelClient {
     suspend fun getItem(@Path("id") id: Long): Response<Item>
 
     @GET("/api/v1/items/code/{code}")
-    suspend fun getItemByCode(@Path("id") code: String): Response<Item>
+    suspend fun getItemByCode(@Path("code") code: String): Response<Item>
 
     @GET("/api/v1/stocktaking")
     suspend fun getStocktaking(): Response<List<Stocktaking>>
 
     @POST("/api/v1/stocktaking")
-    suspend fun createStocktaking(@Body createStocktaking: CreateStocktaking): Response<Unit>
+    suspend fun createStocktaking(@Body stocktakingRequest: StocktakingRequest): Response<Unit>
 
     @GET("/api/v1/stocktaking/{id}")
     suspend fun getStocktakingById(@Path("id") id: Long): Response<Stocktaking>

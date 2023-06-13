@@ -18,3 +18,16 @@ fun <T> NavController.GetOnceResult(keyResult: String, onResult: (T) -> Unit){
             ?.remove<T>(keyResult)
     }
 }
+
+fun <T> NavController.getOnceResult(keyResult: String, onResult: (T) -> Unit){
+    val valueScreenResult =  currentBackStackEntry
+        ?.savedStateHandle?.get<T>(keyResult)
+
+    valueScreenResult?.let {
+        onResult(it)
+
+        currentBackStackEntry
+            ?.savedStateHandle
+            ?.remove<T>(keyResult)
+    }
+}

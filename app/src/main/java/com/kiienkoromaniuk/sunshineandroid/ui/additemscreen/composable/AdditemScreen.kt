@@ -51,10 +51,10 @@ fun AddItemScreen(
 ) {
     val context = LocalContext.current
     val addItemState by addItemViewModel.addItemState.collectAsState(initial = AddItemState())
+    val createItemResponse by addItemViewModel.createItemResponse.collectAsState(initial = null)
     navController.GetOnceResult<String>("barcode"){
         addItemViewModel.updateBarcode(it)
     }
-    val createItemResponse by addItemViewModel.createItemResponse.collectAsState(initial = null)
     val permissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
     if(permissionState.status != PermissionStatus.Granted) {
         LaunchedEffect(true) {

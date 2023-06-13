@@ -116,7 +116,7 @@ fun StocktakingListingScreen(
                 onDismissRequest = stocktakingListingViewModel::changeDialogVisibility,
                 onRightButtonClick = {
                     stocktakingListingViewModel.changeDialogVisibility()
-                    navController.navigate("stocktaking")
+                    navController.navigate("stocktaking/${state.house}/${state.room}")
                 },
                 onHouseChange = stocktakingListingViewModel::updateHouse,
                 onRoomChange = stocktakingListingViewModel::updateRoom

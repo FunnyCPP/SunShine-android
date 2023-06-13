@@ -1,8 +1,9 @@
-package com.kiienkoromaniuk.sunshineandroid.data.model
+package com.kiienkoromaniuk.sunshineandroid.data.request
 
 import com.google.gson.annotations.SerializedName
+import com.kiienkoromaniuk.sunshineandroid.data.model.StocktakingItem
 
-data class CreateStocktaking(
+data class StocktakingRequest(
     @SerializedName("house")
     val house: String,
     @SerializedName("room")

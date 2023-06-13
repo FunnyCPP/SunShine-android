@@ -55,7 +55,6 @@ class AuthRepository @Inject constructor(
             return AccessTokenValidity.INVALID
         }
         val todayMinusOneWeek = LocalDateTime.now()
-            .minusWeeks(1)
             .atZone(ZoneId.systemDefault())
             .toInstant()
             .epochSecond
