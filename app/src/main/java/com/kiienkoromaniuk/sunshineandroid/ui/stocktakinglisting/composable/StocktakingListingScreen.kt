@@ -137,7 +137,8 @@ fun StocktakingListingScreen(
                     is State.Success -> {
                         items(stocktakingResponse.response.orEmpty()) {
                             StocktakingItem(
-                                onClick = { navController.navigate("itemdetails") },
+                                stocktaking = it,
+                                onClick = { navController.navigate("stocktakingdetails?id=${it.id}") },
                             )
                         }
                     }

@@ -41,4 +41,8 @@ class MainRepository @Inject constructor(
     suspend fun getStocktakingById(id: Long) = emitResponse {
         modelClient.getStocktakingById(id)
     }
+
+    suspend fun getBootstrap() = emitResponse {
+        modelClient.getBootstrap()
+    }
 }

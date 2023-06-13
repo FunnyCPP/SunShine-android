@@ -41,8 +41,10 @@ fun MainScreen(
 ) {
     LaunchedEffect(key1 = true, block = {
         mainScreenViewModel.getItems()
+        mainScreenViewModel.getBootstrap()
     })
     val itemsState by mainScreenViewModel.items.collectAsState(initial = null)
+    val bootstrapState by mainScreenViewModel.bootstrap.collectAsState(initial = null)
     Scaffold(
         backgroundColor = BrandTheme.colors.N100,
         topBar = {
@@ -109,7 +111,19 @@ fun MainScreen(
         LazyColumn(
             content = {
                 item {
-                    HeaderSection(onInventoryClick = { navController.navigate("stocktakinglisting") })
+                    when(val bootstrap = bootstrapState) {
+                        is State.Error -> {}
+                        is State.Progress -> {}
+                        is State.Success -> {
+                            HeaderSection(
+                                itemsCount = bootstrap.response?.itemsCount ?:0,
+                                stocktakingCount = bootstrap.response?.stocktakingCount ?:0,
+                                onInventoryClick = { navController.navigate("stocktakinglisting") }
+                            )
+                        }
+                        null -> {}
+                    }
+
                 }
                 item {
                     H2Text(

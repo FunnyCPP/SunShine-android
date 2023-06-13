@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -40,8 +41,30 @@ fun LoginScreen(
     val refreshTokenResponseState by loginViewModel.refreshTokenResponse.collectAsStateWithLifecycle(
         initialValue = null
     )
+    val refreshTokenResponseStateFromRegister by loginViewModel.refreshTokenResponseFromRegister.collectAsStateWithLifecycle(
+        initialValue = null
+    )
     DisposableEffect(key1 = refreshTokenResponseState, effect = {
         when (val refreshTokenResponse = refreshTokenResponseState) {
+            is State.Error -> {
+                Toast.makeText(context, "Wystąpił błąd podczas logowania", Toast.LENGTH_LONG).show()
+            }
+            is State.Progress -> {
+
+            }
+            is State.Success -> {
+                refreshTokenResponse.response?.let {
+                    loginViewModel.saveRefreshToken(refreshTokenResponse.response)
+                    navController.navigate("mainscreen")
+                }
+
+            }
+            null -> {}
+        }
+        onDispose {  }
+    })
+    DisposableEffect(key1 = refreshTokenResponseStateFromRegister, effect = {
+        when (val refreshTokenResponse = refreshTokenResponseStateFromRegister) {
             is State.Error -> {
                 Toast.makeText(context, "Wystąpił błąd podczas logowania", Toast.LENGTH_LONG).show()
             }
@@ -77,7 +100,7 @@ fun LoginScreen(
             contentAlignment = Alignment.Center
         ) {
             Column(
-                modifier = Modifier.padding(bottom = 70.dp),
+                modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 70.dp),
             ) {
                 HeaderText(text = "Email:")
                 Spacer(modifier = Modifier.height(5.dp))
@@ -109,7 +132,21 @@ fun LoginScreen(
                     onValueChange = loginViewModel::updatePassword,
                 )
                 Spacer(modifier = Modifier.height(15.dp))
-                N800Button(text = "Zaloguj się", onButtonClicked = loginViewModel::login)
+                N800Button(
+                    text = "Zaloguj się",
+                    onButtonClicked = loginViewModel::login,
+                    modifier = Modifier.fillMaxWidth(),
+                    radius = 20.dp
+                )
+                Spacer(modifier = Modifier.height(15.dp))
+                HeaderText(text = "albo", modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
+                Spacer(modifier = Modifier.height(15.dp))
+                N800Button(
+                    text = "Zarejestruj się",
+                    onButtonClicked = loginViewModel::register,
+                    modifier = Modifier.fillMaxWidth(),
+                    radius = 20.dp
+                )
             }
         }
     }

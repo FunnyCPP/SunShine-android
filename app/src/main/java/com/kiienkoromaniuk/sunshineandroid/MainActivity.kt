@@ -30,6 +30,7 @@ import com.kiienkoromaniuk.sunshineandroid.ui.login.composable.LoginScreen
 import com.kiienkoromaniuk.sunshineandroid.ui.mainscreen.composable.MainScreen
 import com.kiienkoromaniuk.sunshineandroid.ui.stocktaking.composable.StocktakingScreen
 import com.kiienkoromaniuk.sunshineandroid.ui.stocktaking.viewmodel.StocktakingViewModel
+import com.kiienkoromaniuk.sunshineandroid.ui.stocktakingdetails.composable.StocktakingDetailsScreen
 import com.kiienkoromaniuk.sunshineandroid.ui.stocktakinglisting.composable.StocktakingListingScreen
 import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -100,6 +101,19 @@ class MainActivity : AppCompatActivity() {
                         )
                     }
                     composable("login") { LoginScreen(navController = navController)}
+                    composable(
+                        route = "stocktakingdetails?id={id}",
+                        arguments = listOf(
+                            navArgument("id") {
+                                type = NavType.LongType
+                                defaultValue = -1
+                            }
+                        )) {backStackEntry->
+                        StocktakingDetailsScreen(
+                            navController = navController,
+                            stocktakingId = backStackEntry.arguments?.getLong("id") ?: -1
+                        )
+                    }
                 }
             }
         }

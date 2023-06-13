@@ -4,6 +4,7 @@ import com.kiienkoromaniuk.sunshineandroid.data.State
 import com.kiienkoromaniuk.sunshineandroid.data.model.AccessTokenValidity
 import com.kiienkoromaniuk.sunshineandroid.data.model.LoginRequest
 import com.kiienkoromaniuk.sunshineandroid.data.model.RefreshTokenResponse
+import com.kiienkoromaniuk.sunshineandroid.data.request.RegisterRequest
 import com.kiienkoromaniuk.sunshineandroid.source.local.SharedPreferencesManager
 import com.kiienkoromaniuk.sunshineandroid.source.remote.client.NoAuthModelClient
 import kotlinx.coroutines.CoroutineScope
@@ -19,7 +20,7 @@ import javax.inject.Singleton
 class AuthRepository @Inject constructor(
     private val noAuthModelClient: NoAuthModelClient,
     private val sharedPreferencesManager: SharedPreferencesManager,
-): BaseRepository() {
+) : BaseRepository() {
 
     fun getAccessTokenOrNull(): String? {
         val encryptedAccessToken =
@@ -73,13 +74,24 @@ class AuthRepository @Inject constructor(
             SharedPreferencesManager.Key.CREATED_AT,
         )
         sharedPreferencesManager.save(
-           86400.toString(),
+            86400.toString(),
             SharedPreferencesManager.Key.EXPIRES_IN,
         )
     }
 
     suspend fun loginUser(loginRequest: LoginRequest) = emitResponse {
         noAuthModelClient.login(loginRequest)
+    }
+
+    suspend fun register(loginRequest: LoginRequest) = emitResponse {
+        noAuthModelClient.register(
+            RegisterRequest(
+                firstname = loginRequest.email.orEmpty(),
+                lastname = loginRequest.email.orEmpty(),
+                email = loginRequest.email.orEmpty(),
+                password = loginRequest.password.orEmpty(),
+            )
+        )
     }
 
 }

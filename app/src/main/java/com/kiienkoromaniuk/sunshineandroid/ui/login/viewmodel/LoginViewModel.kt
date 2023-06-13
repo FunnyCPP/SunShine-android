@@ -29,6 +29,11 @@ class LoginViewModel @Inject constructor(
         authRepository.loginUser(request)
     }
 
+    private val _registerRequest: MutableSharedFlow<LoginRequest> = SingleSharedFlow()
+    val refreshTokenResponseFromRegister: Flow<State<RefreshTokenResponse>> = _registerRequest.flatMapLatest { request ->
+        authRepository.register(request)
+    }
+
     fun updateEmail(email: String) {
         _loginState.update { state ->
             state.copy(email = email)
@@ -44,6 +49,12 @@ class LoginViewModel @Inject constructor(
     fun login() {
         viewModelScope.launch {
             _loginRequest.emit(LoginRequest(loginState.value.email, loginState.value.password))
+        }
+    }
+
+    fun register() {
+        viewModelScope.launch {
+            _registerRequest.emit(LoginRequest(loginState.value.email, loginState.value.password))
         }
     }
 

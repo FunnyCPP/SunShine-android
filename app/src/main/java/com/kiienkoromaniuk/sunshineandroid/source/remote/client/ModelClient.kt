@@ -2,6 +2,7 @@ package com.kiienkoromaniuk.sunshineandroid.source.remote.client
 
 import com.kiienkoromaniuk.sunshineandroid.data.model.*
 import com.kiienkoromaniuk.sunshineandroid.data.request.StocktakingRequest
+import com.kiienkoromaniuk.sunshineandroid.data.response.BootstrapResponse
 import com.kiienkoromaniuk.sunshineandroid.data.response.ItemsResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -34,4 +35,7 @@ interface ModelClient {
 
     @GET("/api/v1/items")
     suspend fun getItemsByHouseAndRoom(@Query("house") house: String, @Query("room") room: String): Response<ItemsResponse>
+
+    @GET("/api/v1/items/bootstrap")
+    suspend fun getBootstrap(): Response<BootstrapResponse>
 }

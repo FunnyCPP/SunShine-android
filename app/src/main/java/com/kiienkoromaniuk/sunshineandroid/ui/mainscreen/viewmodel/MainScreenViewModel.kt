@@ -6,6 +6,7 @@ import com.kiienkoromaniuk.sunshineandroid.data.State
 import com.kiienkoromaniuk.sunshineandroid.data.model.LoginRequest
 import com.kiienkoromaniuk.sunshineandroid.data.model.RefreshTokenResponse
 import com.kiienkoromaniuk.sunshineandroid.data.repository.MainRepository
+import com.kiienkoromaniuk.sunshineandroid.data.response.BootstrapResponse
 import com.kiienkoromaniuk.sunshineandroid.data.response.ItemsResponse
 import com.kiienkoromaniuk.sunshineandroid.view.extensions.SingleSharedFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,9 +26,20 @@ class MainScreenViewModel @Inject constructor(
         mainRepository.getItems()
     }
 
+    private val _bootstrapRequest: MutableSharedFlow<Unit> = SingleSharedFlow()
+    val bootstrap: Flow<State<BootstrapResponse>> = _itemsRequest.flatMapLatest { request ->
+        mainRepository.getBootstrap()
+    }
+
     fun getItems() {
         viewModelScope.launch {
             _itemsRequest.emit(Unit)
+        }
+    }
+
+    fun getBootstrap() {
+        viewModelScope.launch {
+            _bootstrapRequest.emit(Unit)
         }
     }
 }
