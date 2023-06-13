@@ -31,8 +31,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideNonAuthModelClient(
-    ): NoAuthModelClient {
+    fun provideNonAuthModelClient(): NoAuthModelClient {
         return ServiceGenerator().createNoAuthService(BuildConfig.API_URL)
     }
 }

@@ -24,7 +24,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
@@ -52,17 +51,17 @@ fun AddItemScreen(
     val context = LocalContext.current
     val addItemState by addItemViewModel.addItemState.collectAsState(initial = AddItemState())
     val createItemResponse by addItemViewModel.createItemResponse.collectAsState(initial = null)
-    navController.GetOnceResult<String>("barcode"){
+    navController.GetOnceResult<String>("barcode") {
         addItemViewModel.updateBarcode(it)
     }
     val permissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
-    if(permissionState.status != PermissionStatus.Granted) {
+    if (permissionState.status != PermissionStatus.Granted) {
         LaunchedEffect(true) {
             permissionState.launchPermissionRequest()
         }
     }
     DisposableEffect(key1 = createItemResponse, effect = {
-        when(createItemResponse){
+        when (createItemResponse) {
             is State.Error -> {
                 Toast.makeText(context, "Wystąpił błąd podczas dodawania przedmiotu", Toast.LENGTH_LONG).show()
             }
@@ -73,7 +72,7 @@ fun AddItemScreen(
             }
             null -> {}
         }
-        onDispose {  }
+        onDispose { }
     })
     Scaffold { paddingValues ->
         Box(
@@ -95,13 +94,13 @@ fun AddItemScreen(
                     addItemState = addItemState,
                     addItemViewModel = addItemViewModel,
                     showDatePicker = showDatePicker,
-                    showBarcodeScanner = { navController.navigate("barcodescanner") }
+                    showBarcodeScanner = { navController.navigate("barcodescanner") },
                 )
             }
             ActionButtons(
                 onBackPressed = navController::navigateUp,
                 onSubmitClicked = {
-                   addItemViewModel.createItem()
+                    addItemViewModel.createItem()
                 },
                 modifier = Modifier.align(Alignment.BottomCenter),
             )
@@ -207,7 +206,7 @@ private fun ItemCreator(
             value = addItemState.description.orEmpty(),
             onValueChange = addItemViewModel::updateDescription,
         )
-        addItemState.barcode?.let { barcode->
+        addItemState.barcode?.let { barcode ->
             Spacer(modifier = Modifier.height(15.dp))
             HeaderText(text = "Barcode:")
             Spacer(modifier = Modifier.height(5.dp))
@@ -222,7 +221,7 @@ private fun ItemCreator(
             text = "Zeskanuj kod",
             radius = 20.dp,
             modifier = Modifier.fillMaxWidth(),
-            onButtonClicked = showBarcodeScanner
+            onButtonClicked = showBarcodeScanner,
         )
     }
 }

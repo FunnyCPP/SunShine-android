@@ -9,7 +9,7 @@ import javax.inject.Singleton
 @Singleton
 class MainRepository @Inject constructor(
     private val modelClient: ModelClient,
-): BaseRepository(){
+) : BaseRepository() {
     suspend fun getItems() = emitResponse {
         modelClient.getItems()
     }
@@ -23,7 +23,7 @@ class MainRepository @Inject constructor(
     }
 
     suspend fun getItemsByHouseAndRoom(house: String, room: String) = emitResponse {
-        modelClient.getItemsByHouseAndRoom(house,room)
+        modelClient.getItemsByHouseAndRoom(house, room)
     }
 
     suspend fun getItemByCode(code: String) = emitResponse {

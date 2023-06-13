@@ -14,6 +14,6 @@ interface NoAuthModelClient {
 
     @POST("/api/v1/auth/authenticate")
     suspend fun login(
-        @Body loginRequest: LoginRequest
+        @Body loginRequest: LoginRequest,
     ): Response<RefreshTokenResponse>
 }

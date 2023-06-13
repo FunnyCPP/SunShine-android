@@ -8,8 +8,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    private val authRepository: AuthRepository
-): ViewModel() {
+    private val authRepository: AuthRepository,
+) : ViewModel() {
 
     fun isTokenValid(): AccessTokenValidity {
         return authRepository.isAuthTokenValid()

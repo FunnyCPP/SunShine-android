@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ItemDetailsViewModel @Inject constructor(
-    private val mainRepository: MainRepository
-): ViewModel() {
+    private val mainRepository: MainRepository,
+) : ViewModel() {
     private val _itemRequest: MutableSharedFlow<Long> = SingleSharedFlow()
     val itemResponse: Flow<State<Item>> = _itemRequest.flatMapLatest { request ->
         mainRepository.getItem(request)

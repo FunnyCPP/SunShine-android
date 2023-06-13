@@ -1,16 +1,11 @@
 package com.kiienkoromaniuk.sunshineandroid.data.repository
 
-import com.kiienkoromaniuk.sunshineandroid.data.State
 import com.kiienkoromaniuk.sunshineandroid.data.model.AccessTokenValidity
 import com.kiienkoromaniuk.sunshineandroid.data.model.LoginRequest
 import com.kiienkoromaniuk.sunshineandroid.data.model.RefreshTokenResponse
 import com.kiienkoromaniuk.sunshineandroid.data.request.RegisterRequest
 import com.kiienkoromaniuk.sunshineandroid.source.local.SharedPreferencesManager
 import com.kiienkoromaniuk.sunshineandroid.source.remote.client.NoAuthModelClient
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import okhttp3.ResponseBody
 import java.time.LocalDateTime
 import java.time.ZoneId
 import javax.inject.Inject
@@ -90,8 +85,7 @@ class AuthRepository @Inject constructor(
                 lastname = loginRequest.email.orEmpty(),
                 email = loginRequest.email.orEmpty(),
                 password = loginRequest.password.orEmpty(),
-            )
+            ),
         )
     }
-
 }

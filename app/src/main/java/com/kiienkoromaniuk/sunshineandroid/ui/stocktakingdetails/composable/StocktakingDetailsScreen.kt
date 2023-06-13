@@ -36,7 +36,7 @@ import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 fun StocktakingDetailsScreen(
     navController: NavController,
     stocktakingId: Long,
-    stocktakingDetailsViewModel: StocktakingDetailsViewModel =  hiltViewModel(),
+    stocktakingDetailsViewModel: StocktakingDetailsViewModel = hiltViewModel(),
 ) {
     LaunchedEffect(key1 = true, block = {
         stocktakingDetailsViewModel.getStocktaking(stocktakingId)
@@ -70,12 +70,10 @@ fun StocktakingDetailsScreen(
                         color = BrandTheme.colors.N100,
                         modifier = Modifier.bottomShadow(),
                     ) {
-                        when(val stocktaking =  stocktakingResponse){
+                        when (val stocktaking = stocktakingResponse) {
                             is State.Error -> {
-
                             }
                             is State.Progress -> {
-
                             }
                             is State.Success -> {
                                 Column(
@@ -97,7 +95,6 @@ fun StocktakingDetailsScreen(
                                 }
                             }
                             null -> {
-
                             }
                         }
                     }
@@ -107,18 +104,16 @@ fun StocktakingDetailsScreen(
                         text = "Dodane należące przedmioty",
                         modifier = Modifier.padding(
                             horizontal = BrandTheme.dimensions.extraLarge,
-                            vertical = BrandTheme.dimensions.normal
+                            vertical = BrandTheme.dimensions.normal,
                         ),
                     )
                 }
                 item {
                     LazyRow(content = {
-                        when(val stocktaking =  stocktakingResponse){
+                        when (val stocktaking = stocktakingResponse) {
                             is State.Error -> {
-
                             }
                             is State.Progress -> {
-
                             }
                             is State.Success -> {
                                 items(stocktaking.response?.requiredItems.orEmpty()) { item ->
@@ -129,7 +124,6 @@ fun StocktakingDetailsScreen(
                                 }
                             }
                             null -> {
-
                             }
                         }
                     })
@@ -139,29 +133,26 @@ fun StocktakingDetailsScreen(
                         text = "Brakujące przedmioty",
                         modifier = Modifier.padding(
                             horizontal = BrandTheme.dimensions.extraLarge,
-                            vertical = BrandTheme.dimensions.normal
+                            vertical = BrandTheme.dimensions.normal,
                         ),
                     )
                 }
                 item {
                     LazyRow(content = {
-                        when(val stocktaking =  stocktakingResponse){
+                        when (val stocktaking = stocktakingResponse) {
                             is State.Error -> {
-
                             }
                             is State.Progress -> {
-
                             }
                             is State.Success -> {
                                 items(stocktaking.response?.missingItems.orEmpty()) { item ->
-                                     Item(
+                                    Item(
                                         item = item,
                                         onClick = { navController.navigate("itemdetails?id=${item.id}") },
                                     )
                                 }
                             }
                             null -> {
-
                             }
                         }
                     })
@@ -171,18 +162,16 @@ fun StocktakingDetailsScreen(
                         text = "Przedmioty, które nie należą do pokoju",
                         modifier = Modifier.padding(
                             horizontal = BrandTheme.dimensions.extraLarge,
-                            vertical = BrandTheme.dimensions.normal
+                            vertical = BrandTheme.dimensions.normal,
                         ),
                     )
                 }
                 item {
                     LazyRow(content = {
-                        when(val stocktaking =  stocktakingResponse){
+                        when (val stocktaking = stocktakingResponse) {
                             is State.Error -> {
-
                             }
                             is State.Progress -> {
-
                             }
                             is State.Success -> {
                                 items(stocktaking.response?.additionalItems.orEmpty()) { item ->
@@ -193,7 +182,6 @@ fun StocktakingDetailsScreen(
                                 }
                             }
                             null -> {
-
                             }
                         }
                     })

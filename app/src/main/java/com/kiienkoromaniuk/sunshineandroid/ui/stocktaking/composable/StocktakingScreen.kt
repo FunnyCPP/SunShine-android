@@ -1,7 +1,6 @@
 package com.kiienkoromaniuk.sunshineandroid.ui.stocktaking.composable
 
 import android.Manifest
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -15,14 +14,16 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.TopAppBar
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
@@ -33,7 +34,6 @@ import com.kiienkoromaniuk.sunshineandroid.ui.stocktaking.state.StocktakingState
 import com.kiienkoromaniuk.sunshineandroid.ui.stocktaking.viewmodel.StocktakingViewModel
 import com.kiienkoromaniuk.sunshineandroid.view.button.G400Button
 import com.kiienkoromaniuk.sunshineandroid.view.button.N800Button
-import com.kiienkoromaniuk.sunshineandroid.view.extensions.GetOnceResult
 import com.kiienkoromaniuk.sunshineandroid.view.extensions.bottomShadow
 import com.kiienkoromaniuk.sunshineandroid.view.extensions.getOnceResult
 import com.kiienkoromaniuk.sunshineandroid.view.text.CopyText
@@ -55,7 +55,7 @@ fun StocktakingScreen(
     getItems: (house: String, room: String) -> Unit,
 ) {
     LaunchedEffect(key1 = true, block = {
-        getItems(house,room)
+        getItems(house, room)
         navController.getOnceResult<String>("barcode") {
             addItem(it)
         }
@@ -69,9 +69,9 @@ fun StocktakingScreen(
         }
     }
     DisposableEffect(key1 = stocktakingResponse, effect = {
-        when(stocktakingResponse){
+        when (stocktakingResponse) {
             is State.Error -> {
-                Toast.makeText(context,"Dodanieinwentaryzacji nie powiodło się", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Dodanieinwentaryzacji nie powiodło się", Toast.LENGTH_LONG).show()
             }
             is State.Progress -> {}
             is State.Success -> {
@@ -79,7 +79,7 @@ fun StocktakingScreen(
             }
             null -> {}
         }
-      onDispose {  }
+        onDispose { }
     })
     Scaffold(
         backgroundColor = BrandTheme.colors.N100,
@@ -117,10 +117,10 @@ fun StocktakingScreen(
                                 modifier = Modifier.fillMaxWidth(),
                             ) {
                                 H1Text(
-                                    text = "Pokój: ${room}",
+                                    text = "Pokój: $room",
                                 )
                                 CopyText(
-                                    text = " Budynek: ${house}",
+                                    text = " Budynek: $house",
                                     color = BrandTheme.colors.N500,
                                     fontSize = BrandTheme.typography.h1.fontSize,
                                 )
@@ -132,7 +132,7 @@ fun StocktakingScreen(
                                     .padding(top = BrandTheme.dimensions.normal),
                                 radius = 100.dp,
                                 onButtonClicked = {
-                                    stocktakingViewModel.createStocktaking(house,room)
+                                    stocktakingViewModel.createStocktaking(house, room)
                                 },
                             )
                         }
@@ -143,7 +143,7 @@ fun StocktakingScreen(
                         text = "Pozostałe przedmioty do zeskanowania",
                         modifier = Modifier.padding(
                             horizontal = BrandTheme.dimensions.extraLarge,
-                            vertical = BrandTheme.dimensions.normal
+                            vertical = BrandTheme.dimensions.normal,
                         ),
                     )
                 }
@@ -162,7 +162,7 @@ fun StocktakingScreen(
                         text = "Zeskanowane przedmioty",
                         modifier = Modifier.padding(
                             horizontal = BrandTheme.dimensions.extraLarge,
-                            vertical = BrandTheme.dimensions.normal
+                            vertical = BrandTheme.dimensions.normal,
                         ),
                     )
                 }
@@ -184,7 +184,7 @@ fun StocktakingScreen(
                             .padding(
                                 all = BrandTheme.dimensions.extraLarge,
 
-                                ),
+                            ),
                         radius = 100.dp,
                         onButtonClicked = {
                             navController.navigate("barcodescanner")

@@ -23,5 +23,4 @@ class RefreshTokenAuthenticator @Inject constructor(
             null
         }
     }
-
 }

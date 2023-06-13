@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.kiienkoromaniuk.sunshineandroid.data.State
 import com.kiienkoromaniuk.sunshineandroid.data.model.Item
 import com.kiienkoromaniuk.sunshineandroid.data.repository.MainRepository
-import com.kiienkoromaniuk.sunshineandroid.data.response.ItemsResponse
 import com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.state.AddItemState
 import com.kiienkoromaniuk.sunshineandroid.view.extensions.SingleSharedFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddItemViewModel @Inject constructor(
-    private val mainRepository: MainRepository
+    private val mainRepository: MainRepository,
 ) : ViewModel() {
 
     private val _addItemState = MutableStateFlow(
@@ -40,7 +39,7 @@ class AddItemViewModel @Inject constructor(
                     description = addItemState.value.description,
                     house = addItemState.value.house,
                     code = addItemState.value.barcode,
-                )
+                ),
             )
         }
     }

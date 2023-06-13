@@ -68,6 +68,4 @@ class ServiceGenerator @Inject constructor() {
         )
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
-
-
 }

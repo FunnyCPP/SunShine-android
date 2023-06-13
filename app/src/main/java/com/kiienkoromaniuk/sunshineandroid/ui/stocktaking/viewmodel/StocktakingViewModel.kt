@@ -1,6 +1,5 @@
 package com.kiienkoromaniuk.sunshineandroid.ui.stocktaking.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -25,7 +24,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StocktakingViewModel @Inject constructor(
-    private val mainRepository: MainRepository
+    private val mainRepository: MainRepository,
 ) : ViewModel() {
     var isGetRequiredItemsWasCalled = false
     private val _stocktakingState = MutableStateFlow(
@@ -50,7 +49,6 @@ class StocktakingViewModel @Inject constructor(
     }.asLiveData(Dispatchers.IO)
 
     fun getItemsByHouseAndRoom(house: String, room: String) {
-        Log.e("TAGG", "getItemsByHouseAndRoom called")
         viewModelScope.launch {
             _requiredItemsRequest.emit(Pair(house, room))
         }
@@ -87,41 +85,42 @@ class StocktakingViewModel @Inject constructor(
     }
 
     fun createStocktaking(house: String, room: String) {
-        val  stocktakingState = stocktakingState.value
+        val stocktakingState = stocktakingState.value
         val createdAt = DateHelper.dateWithDashesFromMilliseconds(
             LocalDateTime.now()
                 .atZone(ZoneId.systemDefault())
                 .toInstant()
-                .epochSecond
+                .epochSecond,
         ).orEmpty()
         val items: MutableList<StocktakingItem> = mutableListOf()
         stocktakingState.addedItems.forEach {
-            when{
+            when {
                 stocktakingState.requiredItems.contains(it) -> {
-                    it.id?.let {id->
-                        items.add(StocktakingItem(StocktakingItemType.REQUIRED_ITEM,id))
+                    it.id?.let { id ->
+                        items.add(StocktakingItem(StocktakingItemType.REQUIRED_ITEM, id))
                     }
                 }
                 stocktakingState.additionalItems.contains(it) -> {
-                    it.id?.let {id->
-                        items.add(StocktakingItem(StocktakingItemType.ADDITIONAL_ITEM,id))
+                    it.id?.let { id ->
+                        items.add(StocktakingItem(StocktakingItemType.ADDITIONAL_ITEM, id))
                     }
                 }
             }
         }
         stocktakingState.remainingItems.forEach {
-            it.id?.let {id->
-                items.add(StocktakingItem(StocktakingItemType.MISSING_ITEM,id))
+            it.id?.let { id ->
+                items.add(StocktakingItem(StocktakingItemType.MISSING_ITEM, id))
             }
         }
         viewModelScope.launch {
-            _stocktakingRequest.emit(StocktakingRequest(
-                house = house,
-                room = room,
-                createdAt = createdAt,
-                items = items
-            ))
+            _stocktakingRequest.emit(
+                StocktakingRequest(
+                    house = house,
+                    room = room,
+                    createdAt = createdAt,
+                    items = items,
+                ),
+            )
         }
-
     }
 }

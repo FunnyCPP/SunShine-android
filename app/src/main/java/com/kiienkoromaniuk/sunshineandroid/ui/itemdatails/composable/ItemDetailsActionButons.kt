@@ -13,10 +13,8 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.kiienkoromaniuk.sunshineandroid.R
 import com.kiienkoromaniuk.sunshineandroid.view.button.G400Button
 import com.kiienkoromaniuk.sunshineandroid.view.extensions.clickable
 import com.kiienkoromaniuk.sunshineandroid.view.extensions.topShadow

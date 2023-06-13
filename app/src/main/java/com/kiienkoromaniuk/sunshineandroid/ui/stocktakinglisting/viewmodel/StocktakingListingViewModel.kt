@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.kiienkoromaniuk.sunshineandroid.data.State
 import com.kiienkoromaniuk.sunshineandroid.data.model.Stocktaking
 import com.kiienkoromaniuk.sunshineandroid.data.repository.MainRepository
-import com.kiienkoromaniuk.sunshineandroid.data.response.ItemsResponse
 import com.kiienkoromaniuk.sunshineandroid.ui.stocktakinglisting.state.StocktakingListState
 import com.kiienkoromaniuk.sunshineandroid.view.extensions.SingleSharedFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StocktakingListingViewModel @Inject constructor(
-    private val mainRepository: MainRepository
+    private val mainRepository: MainRepository,
 ) : ViewModel() {
 
     private val _stocktakingListingState = MutableStateFlow(

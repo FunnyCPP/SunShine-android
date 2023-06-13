@@ -11,5 +11,5 @@ data class StocktakingRequest(
     @SerializedName("created_at")
     val createdAt: String,
     @SerializedName("items")
-    val items: List<StocktakingItem>
+    val items: List<StocktakingItem>,
 )

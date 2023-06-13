@@ -25,7 +25,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.kiienkoromaniuk.sunshineandroid.R
 import com.kiienkoromaniuk.sunshineandroid.data.State
@@ -39,7 +38,7 @@ import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 @Composable
 fun StocktakingListingScreen(
     navController: NavController,
-    stocktakingListingViewModel: StocktakingListingViewModel = hiltViewModel()
+    stocktakingListingViewModel: StocktakingListingViewModel = hiltViewModel(),
 ) {
     val state by stocktakingListingViewModel.stocktakingListingState.collectAsState()
     val stocktakingState by stocktakingListingViewModel.stocktaking.collectAsState(initial = null)
@@ -108,7 +107,7 @@ fun StocktakingListingScreen(
             }
         },
     ) { paddingValues ->
-        if(state.shouldShowDialog){
+        if (state.shouldShowDialog) {
             BrandDialog(
                 title = "Inwentaryzacja",
                 house = state.house,
@@ -119,7 +118,7 @@ fun StocktakingListingScreen(
                     navController.navigate("stocktaking/${state.house}/${state.room}")
                 },
                 onHouseChange = stocktakingListingViewModel::updateHouse,
-                onRoomChange = stocktakingListingViewModel::updateRoom
+                onRoomChange = stocktakingListingViewModel::updateRoom,
             )
         }
         LazyColumn(
@@ -131,7 +130,7 @@ fun StocktakingListingScreen(
                         modifier = Modifier.padding(BrandTheme.dimensions.extraLarge),
                     )
                 }
-                when(val stocktakingResponse = stocktakingState) {
+                when (val stocktakingResponse = stocktakingState) {
                     is State.Error -> {}
                     is State.Progress -> {}
                     is State.Success -> {

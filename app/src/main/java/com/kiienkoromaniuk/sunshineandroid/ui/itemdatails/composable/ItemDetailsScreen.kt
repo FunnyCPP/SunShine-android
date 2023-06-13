@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -30,7 +29,7 @@ import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 fun ItemDetailsScreen(
     navController: NavController,
     itemId: Long,
-    itemDetailsViewModel: ItemDetailsViewModel = hiltViewModel()
+    itemDetailsViewModel: ItemDetailsViewModel = hiltViewModel(),
 ) {
     val itemState by itemDetailsViewModel.itemResponse.collectAsState(initial = null)
     LaunchedEffect(key1 = true, block = {
@@ -52,11 +51,11 @@ fun ItemDetailsScreen(
                         .background(BrandTheme.colors.N100)
                         .padding(end = BrandTheme.dimensions.normal),
                 )
-                when(val itemResponse = itemState){
+                when (val itemResponse = itemState) {
                     is State.Error -> {}
                     is State.Progress -> {}
                     is State.Success -> {
-                        itemResponse.response?.let {item->
+                        itemResponse.response?.let { item ->
                             Column(
                                 modifier = Modifier.padding(20.dp),
                             ) {
@@ -81,13 +80,10 @@ fun ItemDetailsScreen(
                                 CopyText(text = item.code)
                             }
                         }
-
                     }
                     null -> {
-
                     }
                 }
-
             }
             /*ItemDetailsActionButtons(
                 onBackPressed = navController::navigateUp,

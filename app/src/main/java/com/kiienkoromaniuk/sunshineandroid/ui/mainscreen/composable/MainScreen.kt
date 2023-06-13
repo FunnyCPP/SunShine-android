@@ -37,7 +37,7 @@ import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 @Composable
 fun MainScreen(
     navController: NavController,
-    mainScreenViewModel: MainScreenViewModel = hiltViewModel()
+    mainScreenViewModel: MainScreenViewModel = hiltViewModel(),
 ) {
     LaunchedEffect(key1 = true, block = {
         mainScreenViewModel.getItems()
@@ -111,19 +111,18 @@ fun MainScreen(
         LazyColumn(
             content = {
                 item {
-                    when(val bootstrap = bootstrapState) {
+                    when (val bootstrap = bootstrapState) {
                         is State.Error -> {}
                         is State.Progress -> {}
                         is State.Success -> {
                             HeaderSection(
-                                itemsCount = bootstrap.response?.itemsCount ?:0,
-                                stocktakingCount = bootstrap.response?.stocktakingCount ?:0,
-                                onInventoryClick = { navController.navigate("stocktakinglisting") }
+                                itemsCount = bootstrap.response?.itemsCount ?: 0,
+                                stocktakingCount = bootstrap.response?.stocktakingCount ?: 0,
+                                onInventoryClick = { navController.navigate("stocktakinglisting") },
                             )
                         }
                         null -> {}
                     }
-
                 }
                 item {
                     H2Text(
@@ -131,11 +130,11 @@ fun MainScreen(
                         modifier = Modifier.padding(BrandTheme.dimensions.extraLarge),
                     )
                 }
-                when(val items = itemsState) {
+                when (val items = itemsState) {
                     is State.Error -> {}
                     is State.Progress -> {}
                     is State.Success -> {
-                        items(items.response?.items.orEmpty()) {item->
+                        items(items.response?.items.orEmpty()) { item ->
                             Item(
                                 item = item,
                                 onClick = { navController.navigate("itemdetails?id=${item.id}") },

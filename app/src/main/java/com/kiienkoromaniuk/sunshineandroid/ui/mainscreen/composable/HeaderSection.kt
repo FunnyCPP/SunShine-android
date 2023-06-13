@@ -37,10 +37,10 @@ fun HeaderSection(
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 H1Text(
-                    text = "${stocktakingCount} inw.",
+                    text = "$stocktakingCount inw.",
                 )
                 CopyText(
-                    text = DIVIDER + "${itemsCount} przedm.",
+                    text = DIVIDER + "$itemsCount przedm.",
                     color = BrandTheme.colors.N500,
                     fontSize = BrandTheme.typography.h1.fontSize,
                 )

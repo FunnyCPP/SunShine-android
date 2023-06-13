@@ -1,7 +1,6 @@
 package com.kiienkoromaniuk.sunshineandroid
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -9,9 +8,6 @@ import androidx.camera.core.ExperimentalGetImage
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,9 +18,9 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.MaterialDatePicker.INPUT_MODE_CALENDAR
 import com.kiienkoromaniuk.sunshineandroid.data.State
 import com.kiienkoromaniuk.sunshineandroid.data.model.AccessTokenValidity
-import com.kiienkoromaniuk.sunshineandroid.ui.barcode.composable.BarcodeScannerScreen
 import com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.composable.AddItemScreen
 import com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.helper.DateHelper
+import com.kiienkoromaniuk.sunshineandroid.ui.barcode.composable.BarcodeScannerScreen
 import com.kiienkoromaniuk.sunshineandroid.ui.itemdatails.composable.ItemDetailsScreen
 import com.kiienkoromaniuk.sunshineandroid.ui.login.composable.LoginScreen
 import com.kiienkoromaniuk.sunshineandroid.ui.mainscreen.composable.MainScreen
@@ -34,9 +30,6 @@ import com.kiienkoromaniuk.sunshineandroid.ui.stocktakingdetails.composable.Stoc
 import com.kiienkoromaniuk.sunshineandroid.ui.stocktakinglisting.composable.StocktakingListingScreen
 import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @ExperimentalPermissionsApi
 @ExperimentalGetImage
@@ -64,18 +57,19 @@ class MainActivity : AppCompatActivity() {
                     composable(
                         route = "itemdetails?id={id}",
                         arguments = listOf(
-                        navArgument("id") {
-                            type = NavType.LongType
-                            defaultValue = -1
-                        }
-                    )) {backStackEntry->
+                            navArgument("id") {
+                                type = NavType.LongType
+                                defaultValue = -1
+                            },
+                        ),
+                    ) { backStackEntry ->
                         ItemDetailsScreen(
                             navController = navController,
-                            itemId = backStackEntry.arguments?.getLong("id") ?: -1
+                            itemId = backStackEntry.arguments?.getLong("id") ?: -1,
                         )
                     }
                     composable("barcodescanner") { BarcodeScannerScreen(navController = navController) }
-                    composable("stocktakinglisting") { StocktakingListingScreen(navController = navController)}
+                    composable("stocktakinglisting") { StocktakingListingScreen(navController = navController) }
                     composable(
                         route = "stocktaking/{house}/{room}",
                         arguments = listOf(
@@ -86,32 +80,33 @@ class MainActivity : AppCompatActivity() {
                             navArgument("room") {
                                 type = NavType.StringType
                                 defaultValue = ""
-                            }
-                        )
-                    )  {backStackEntry->
+                            },
+                        ),
+                    ) { backStackEntry ->
                         StocktakingScreen(
                             navController = navController,
                             house = backStackEntry.arguments?.getString("house") ?: "",
                             room = backStackEntry.arguments?.getString("room") ?: "",
                             stocktakingViewModel = stocktakingViewModel,
                             stocktakingState = stocktakingState,
-                            addItem= this@MainActivity::addItem,
+                            addItem = this@MainActivity::addItem,
                             getItems = this@MainActivity::getItems,
 
                         )
                     }
-                    composable("login") { LoginScreen(navController = navController)}
+                    composable("login") { LoginScreen(navController = navController) }
                     composable(
                         route = "stocktakingdetails?id={id}",
                         arguments = listOf(
                             navArgument("id") {
                                 type = NavType.LongType
                                 defaultValue = -1
-                            }
-                        )) {backStackEntry->
+                            },
+                        ),
+                    ) { backStackEntry ->
                         StocktakingDetailsScreen(
                             navController = navController,
-                            stocktakingId = backStackEntry.arguments?.getLong("id") ?: -1
+                            stocktakingId = backStackEntry.arguments?.getLong("id") ?: -1,
                         )
                     }
                 }
@@ -134,7 +129,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getStartDestination(): String {
-        return when(mainActivityViewModel.isTokenValid()){
+        return when (mainActivityViewModel.isTokenValid()) {
             AccessTokenValidity.VALID -> {
                 "mainscreen"
             }
@@ -147,48 +142,38 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun addItem(code: String){
-        Log.e("TAGG", "ADD ITEM CALLED")
+    private fun addItem(code: String) {
         stocktakingViewModel.getItemByCode(code = code)
     }
 
     private fun getItems(house: String, room: String) {
-        Log.e("TAGG", stocktakingViewModel.stocktakingState.value.requiredItems.toString())
-        Log.e("TAGG", stocktakingViewModel.stocktakingState.value.requiredItems.isEmpty().toString())
-        if(!stocktakingViewModel.isGetRequiredItemsWasCalled) {
+        if (!stocktakingViewModel.isGetRequiredItemsWasCalled) {
             stocktakingViewModel.getItemsByHouseAndRoom(house = house, room = room)
             stocktakingViewModel.isGetRequiredItemsWasCalled = true
         }
     }
 
-    private fun observeData()  {
-        stocktakingViewModel.requiredItemsState.observe(this) {state->
+    private fun observeData() {
+        stocktakingViewModel.requiredItemsState.observe(this) { state ->
             when (state) {
                 is State.Error -> {
-                    Log.e("TAGG", "REQUIRED ITEMS ERROR")
                 }
                 is State.Progress -> {
-                    Log.e("TAGG", "REQUIRED ITEMS PROGRESS")
                 }
                 is State.Success -> {
-                    Log.e("TAGG", "REQUIRED ITEMS SUCCESS")
                     stocktakingViewModel.updateRemainingItems(state.response?.items.orEmpty())
                     stocktakingViewModel.updateRequiredItems(state.response?.items.orEmpty())
                 }
             }
         }
-        stocktakingViewModel.itemState.observe(this){state->
-            when(state){
+        stocktakingViewModel.itemState.observe(this) { state ->
+            when (state) {
                 is State.Error -> {
-                    Log.e("TAGG", "ITEM ERROR")
-                    Log.e("TAGG", state.toString())
                 }
                 is State.Progress -> {
-                    Log.e("TAGG", "ITEM PROGRESS")
                 }
                 is State.Success -> {
-                    Log.e("TAGG", "ITEM SUCCESS")
-                    state.response?.let {item->
+                    state.response?.let { item ->
                         val stocktakingState = stocktakingViewModel.stocktakingState.value
                         val addedItems = stocktakingState.addedItems + item
                         val remainingItems = stocktakingState.remainingItems.toMutableList()

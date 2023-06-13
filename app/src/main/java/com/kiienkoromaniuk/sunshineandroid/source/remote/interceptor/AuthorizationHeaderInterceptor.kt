@@ -6,7 +6,7 @@ import okhttp3.Request
 import okhttp3.Response
 import javax.inject.Inject
 
-class AuthorizationHeaderInterceptor  @Inject constructor(
+class AuthorizationHeaderInterceptor @Inject constructor(
     private val authRepository: AuthRepository,
 ) : Interceptor {
 

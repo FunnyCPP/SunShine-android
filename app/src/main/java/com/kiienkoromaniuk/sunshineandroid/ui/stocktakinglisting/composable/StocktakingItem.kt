@@ -44,7 +44,7 @@ fun StocktakingItem(
                 .padding(horizontal = BrandTheme.dimensions.extraLarge)
                 .fillMaxWidth(),
 
-            ) {
+        ) {
             Spacer(modifier = Modifier.height(BrandTheme.dimensions.normal))
             Row {
                 BoldCopyText(text = "Budynek:")

@@ -6,7 +6,6 @@ import com.kiienkoromaniuk.sunshineandroid.data.State
 import com.kiienkoromaniuk.sunshineandroid.data.model.LoginRequest
 import com.kiienkoromaniuk.sunshineandroid.data.model.RefreshTokenResponse
 import com.kiienkoromaniuk.sunshineandroid.data.repository.AuthRepository
-import com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.state.AddItemState
 import com.kiienkoromaniuk.sunshineandroid.ui.login.state.LoginState
 import com.kiienkoromaniuk.sunshineandroid.view.extensions.SingleSharedFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-): ViewModel() {
+) : ViewModel() {
 
     private val _loginState = MutableStateFlow(
         LoginState(),
@@ -58,7 +57,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun saveRefreshToken(refreshTokenResponse: RefreshTokenResponse){
+    fun saveRefreshToken(refreshTokenResponse: RefreshTokenResponse) {
         authRepository.saveRefreshTokenData(refreshTokenResponse)
     }
 }

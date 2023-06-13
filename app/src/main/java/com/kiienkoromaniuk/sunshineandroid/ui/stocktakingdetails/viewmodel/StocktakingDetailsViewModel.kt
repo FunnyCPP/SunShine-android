@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StocktakingDetailsViewModel @Inject constructor(
-    private val mainRepository: MainRepository
-): ViewModel() {
+    private val mainRepository: MainRepository,
+) : ViewModel() {
 
     private val _stocktakingRequest: MutableSharedFlow<Long> = SingleSharedFlow()
     val stocktaking: Flow<State<Stocktaking>> = _stocktakingRequest.flatMapLatest { request ->
