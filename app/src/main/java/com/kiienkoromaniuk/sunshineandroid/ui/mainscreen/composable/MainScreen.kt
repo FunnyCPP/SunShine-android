@@ -1,5 +1,7 @@
 package com.kiienkoromaniuk.sunshineandroid.ui.mainscreen.composable
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,24 +13,27 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.kiienkoromaniuk.sunshineandroid.R
 import com.kiienkoromaniuk.sunshineandroid.data.State
 import com.kiienkoromaniuk.sunshineandroid.ui.mainscreen.viewmodel.MainScreenViewModel
+import com.kiienkoromaniuk.sunshineandroid.view.composable.MenuItem
+import com.kiienkoromaniuk.sunshineandroid.view.composable.TopBar
 import com.kiienkoromaniuk.sunshineandroid.view.text.H2Text
 import com.kiienkoromaniuk.sunshineandroid.view.text.HeaderText
 import com.kiienkoromaniuk.sunshineandroid.view.theme.BrandTheme
@@ -45,23 +50,43 @@ fun MainScreen(
     })
     val itemsState by mainScreenViewModel.items.collectAsState(initial = null)
     val bootstrapState by mainScreenViewModel.bootstrap.collectAsState(initial = null)
+    var isMenuExpanded by remember { mutableStateOf(false) }
+    val context = LocalContext.current
     Scaffold(
         backgroundColor = BrandTheme.colors.N100,
         topBar = {
-            TopAppBar(
-                title = {
-                    HeaderText(
-                        text = "SunShine",
-                        textAlign = TextAlign.Center,
-                        fontSize = 16.sp,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                },
-                elevation = BrandTheme.dimensions.none,
-                backgroundColor = BrandTheme.colors.N100,
+            TopBar(
+                title = "SunShine",
                 modifier = Modifier
                     .background(BrandTheme.colors.N100)
                     .padding(end = BrandTheme.dimensions.normal),
+                shouldShowMenu = true,
+                isMenuExpanded = isMenuExpanded,
+                onMenuExpandChange = {isMenuExpanded = it},
+                menuItems = {
+                    DropdownMenuItem(
+                        onClick = {
+                            mainScreenViewModel.logout()
+                            navController.navigate("login")
+                        },
+                    ) {
+                        MenuItem(
+                            title = "Wyloguj się",
+                            painter = painterResource(id = R.drawable.ic_leave),
+                        )
+                    }
+                    DropdownMenuItem(
+                        onClick = {
+                            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://barcode.tec-it.com/en"))
+                            startActivity(context, browserIntent, null)
+                        },
+                    ) {
+                        MenuItem(
+                            title = "Wygeneruj kod",
+                            painter = painterResource(id = R.drawable.ic_qr_code),
+                        )
+                    }
+                }
             )
         },
         bottomBar = {
