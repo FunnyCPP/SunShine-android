@@ -117,7 +117,7 @@ fun LoginScreen(
                 PrimaryOutlinedTextField(
                     placeholder = {
                         CopyText(
-                            text = stringResource(R.string.nazwa_label),
+                            text = "Hasło",
                             color = BrandTheme.colors.N500,
                         )
                     },
