@@ -59,11 +59,6 @@ fun Item(
                     fontSize = 18.sp,
 
                 )
-                Spacer(modifier = Modifier.width(BrandTheme.dimensions.normal))
-                CopyText(
-                    text = "(zezłamowany)",
-                    color = BrandTheme.colors.N500,
-                )
             }
             Row {
                 BoldCopyText(text = "Budynek:")

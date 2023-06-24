@@ -3,6 +3,7 @@ package com.kiienkoromaniuk.sunshineandroid.ui.mainscreen.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kiienkoromaniuk.sunshineandroid.data.State
+import com.kiienkoromaniuk.sunshineandroid.data.repository.AuthRepository
 import com.kiienkoromaniuk.sunshineandroid.data.repository.MainRepository
 import com.kiienkoromaniuk.sunshineandroid.data.response.BootstrapResponse
 import com.kiienkoromaniuk.sunshineandroid.data.response.ItemsResponse
@@ -17,6 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
     private val mainRepository: MainRepository,
+    private val authRepository: AuthRepository,
 ) : ViewModel() {
 
     private val _itemsRequest: MutableSharedFlow<Unit> = SingleSharedFlow()
@@ -39,5 +41,9 @@ class MainScreenViewModel @Inject constructor(
         viewModelScope.launch {
             _bootstrapRequest.emit(Unit)
         }
+    }
+
+    fun logout() {
+        authRepository.logout()
     }
 }

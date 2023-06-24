@@ -88,4 +88,20 @@ class AuthRepository @Inject constructor(
             ),
         )
     }
+
+    fun logout() {
+        sharedPreferencesManager.save(null, SharedPreferencesManager.Key.TOKEN_TYPE)
+        sharedPreferencesManager.save(
+            null,
+            SharedPreferencesManager.Key.ACCESS_TOKEN,
+        )
+        sharedPreferencesManager.save(
+            null,
+            SharedPreferencesManager.Key.CREATED_AT,
+        )
+        sharedPreferencesManager.save(
+            null,
+            SharedPreferencesManager.Key.EXPIRES_IN,
+        )
+    }
 }
