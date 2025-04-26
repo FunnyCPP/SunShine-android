@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kiienkoromaniuk.sunshineandroid.data.model.Stocktaking
+import com.kiienkoromaniuk.sunshineandroid.ui.additemscreen.helper.DateHelper
 import com.kiienkoromaniuk.sunshineandroid.view.extensions.clickable
 import com.kiienkoromaniuk.sunshineandroid.view.text.BoldCopyText
 import com.kiienkoromaniuk.sunshineandroid.view.text.CopyText
@@ -57,7 +58,7 @@ fun StocktakingItem(
             }
             Spacer(modifier = Modifier.height(BrandTheme.dimensions.normal))
             BoldCopyText(text = "Data inwentaryzacji:")
-            CopyText(text = stocktaking.createdAt)
+            CopyText(text = DateHelper.formatDate(stocktaking.createdAt))
             Spacer(modifier = Modifier.height(BrandTheme.dimensions.normal))
         }
     }

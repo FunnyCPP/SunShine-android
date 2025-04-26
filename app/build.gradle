@@ -34,7 +34,7 @@ android {
             target.buildConfigField "String", "${name}", "\"${value}\""
         }
         debug {
-            addBuildConfigField(owner, "API_URL", "http://83.229.85.107:8080/")
+            addBuildConfigField(owner, "API_URL", "http://145.223.117.124:8080/")
             debuggable true
         }
         release {

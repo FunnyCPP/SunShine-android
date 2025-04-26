@@ -56,7 +56,7 @@ fun MainScreen(
         backgroundColor = BrandTheme.colors.N100,
         topBar = {
             TopBar(
-                title = "SunShine",
+                title = "Inwentaryzacja",
                 modifier = Modifier
                     .background(BrandTheme.colors.N100)
                     .padding(end = BrandTheme.dimensions.normal),
